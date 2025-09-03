@@ -33,9 +33,8 @@ Thumbs.db
 
 # Keil 输出目录（根据工程命名修改）
 
-MDK-ARM/DebugConfig/
-MDK-ARM/Lwatch/
-
+Lwatch/MDK-ARM/DebugConfig/
+Lwatch/MDK-ARM/Lwatch/
 # =============================
 # STM32CubeMX 生成的临时文件
 # =============================
