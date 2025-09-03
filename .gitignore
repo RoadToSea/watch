@@ -1,4 +1,52 @@
-.vscode/
+# =============================
+# 通用
+# =============================
+.DS_Store
+Thumbs.db
 
-MDK-ARM/Lwatch/
+# =============================
+# VSCode 配置
+# =============================
+.vscode/
+*.code-workspace
+
+# =============================
+# Keil MDK-ARM 编译文件
+# =============================
+*.axf
+*.bak
+*.bld
+*.dep
+*.htm
+*.lnp
+*.lst
+*.map
+*.obj
+*.scr
+*.tra
+*.iex
+*.uvgui.*
+*.uvguix.*
+*.uvoptx
+*.uvprojx
+*.scvd
+
+# Keil 输出目录（根据工程命名修改）
+Lwatch/
 MDK-ARM/DebugConfig/
+MDK-ARM/Lwatch/
+
+# =============================
+# STM32CubeMX 生成的临时文件
+# =============================
+*.launch
+*.settings/
+*.ioc-backup
+
+# =============================
+# 编译输出常见目录
+# =============================
+build/
+out/
+Debug/
+Release/
