@@ -32,7 +32,7 @@ Thumbs.db
 *.scvd
 
 # Keil 输出目录（根据工程命名修改）
-Lwatch/
+
 MDK-ARM/DebugConfig/
 MDK-ARM/Lwatch/
 
