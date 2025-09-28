@@ -100,7 +100,7 @@ void lcd_init(void)
         drv_add(&dev_lcd[i]);
     }
 
-    printf("lcd init ok");
+    printf("lcd init ok\n");
 }
 
 DRIVER_REG(lcd_init);

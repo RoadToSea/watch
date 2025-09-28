@@ -6,7 +6,7 @@ drv_ops_t drv_template_ops = {0};
 
 drv_template_t dev_template[] = {
     {
-        .drv_name = "dev_template_1",
+        .drv_name = "dev_template",
         .id = 0,
         .status = DRV_STATUS_UNINIT,
         .ops = &drv_template_ops,
@@ -90,7 +90,7 @@ void template_init(void)
         drv_add(&dev_template[i]);
     }
 
-    printf("template init ok");
+    printf("template init ok\n");
 }
 
 DRIVER_REG(template_init);

@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os.h"
+#include "dma.h"
 #include "iwdg.h"
 #include "spi.h"
 #include "tim.h"
@@ -30,6 +31,7 @@
 #include "drv_base.h"
 #include <stdio.h>
 #include "app.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -94,6 +96,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   //MX_IWDG_Init();
   MX_SPI1_Init();
   MX_TIM3_Init();
@@ -107,8 +110,8 @@ int main(void)
   // osKernelInitialize();  /* Call init function for freertos objects (in cmsis_os2.c) */
   // MX_FREERTOS_Init();
 
-  // /* Start scheduler */
-  // osKernelStart();
+  /* Start scheduler */
+  //osKernelStart();
 
   /* We should never get here as control is now taken by the scheduler */
 
@@ -169,11 +172,37 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+
+
+
+
 }
 
 /* USER CODE BEGIN 4 */
 
 /* USER CODE END 4 */
+
+/**
+  * @brief  Period elapsed callback in non blocking mode
+  * @note   This function is called  when TIM10 interrupt took place, inside
+  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+  * a global variable "uwTick" used as application time base.
+  * @param  htim : TIM handle
+  * @retval None
+  */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  /* USER CODE BEGIN Callback 0 */
+
+  /* USER CODE END Callback 0 */
+  if (htim->Instance == TIM10)
+  {
+    HAL_IncTick();
+  }
+  /* USER CODE BEGIN Callback 1 */
+
+  /* USER CODE END Callback 1 */
+}
 
 /**
   * @brief  This function is executed in case of error occurrence.
@@ -186,6 +215,7 @@ void Error_Handler(void)
   __disable_irq();
   while (1)
   {
+    printf("Error\n");
   }
   /* USER CODE END Error_Handler_Debug */
 }

@@ -91,6 +91,7 @@ void drv_base_init(void)
     {
         (*drv_iter)();
     }
+    
 }
 
 drv_if_t* drv_find(const char* name)
@@ -105,8 +106,12 @@ drv_if_t* drv_find(const char* name)
         drv_if_t* tmp = (drv_if_t*)p_iter->data;
         if(strcmp(tmp->drv_name ,name) == 0)
         {
-            //调用设备的初始化函数
-            drv_init(tmp);
+            //if driver is not inited or stopped, init it
+            if(tmp->status == DRV_STATUS_UNINIT || tmp->status == DRV_STATUS_STOP)
+            {
+                drv_init(tmp);
+            }
+            
             return tmp;
         }
 

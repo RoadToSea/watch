@@ -13,7 +13,15 @@
 
 #if USE_MPU6050 == 1
 
+
+/**************************************************************************************** *
+                                    variable
+**************************************************************************************** */
 drv_ops_t drv_mpu6050_ops = {0};
+
+drv_mpu6050_data_t dev_mpu6050_data[] = {
+    {0}
+};
 
 drv_mpu6050_t dev_mpu6050[] = {
     {
@@ -21,10 +29,13 @@ drv_mpu6050_t dev_mpu6050[] = {
         .id = 0,
         .status = DRV_STATUS_UNINIT,
         .ops = &drv_mpu6050_ops,
-        .priv_data = NULL
+        .priv_data = &dev_mpu6050_data[0]
     }
 };
 
+/**************************************************************************************** *
+                                    weak function
+**************************************************************************************** */
  WEAK_FUNC int drv_mpu6050_board_init(int id)
 {
     return DRV_ERR_NOSUPPORT;
@@ -55,6 +66,24 @@ WEAK_FUNC int drv_mpu6050_board_get_chip_id(int id,uint8_t* chip_id)
     return DRV_ERR_NOSUPPORT;
 }
 
+WEAK_FUNC int drv_mpu6050_board_get_accel(int id,drv_mpu6050_accel_t* accel)
+{
+    return DRV_ERR_NOSUPPORT;
+}
+
+WEAK_FUNC int drv_mpu6050_board_get_gyro(int id,drv_mpu6050_gyro_t* gyro)
+{
+    return DRV_ERR_NOSUPPORT;
+}
+
+WEAK_FUNC int drv_mpu6050_board_get_angle(int id,drv_mpu6050_angle_t* angle)
+{
+    return DRV_ERR_NOSUPPORT;
+}
+
+/**************************************************************************************** *
+                                function declares
+**************************************************************************************** */
 int drv_mpu6050_init(drv_if_t* drv)
 {
     return drv_mpu6050_board_init(drv->id);
@@ -86,7 +115,24 @@ int drv_mpu6050_ctrl(drv_if_t* drv,int cmd, void* user_data)
     switch (cmd)
     {
     case MPU6050_CMD_GET_CHIP_ID:
+    {
         ret = drv_mpu6050_board_get_chip_id(drv->id,(uint8_t*)user_data);
+    }
+    break;
+    case MPU6050_CMD_GET_ACCEL:
+    {
+        ret = drv_mpu6050_board_get_accel(drv->id,(drv_mpu6050_accel_t*)user_data);
+    }
+    break;
+    case MPU6050_CMD_GET_GYRO:
+    {
+        ret = drv_mpu6050_board_get_gyro(drv->id,(drv_mpu6050_gyro_t*)user_data);
+    }
+    break;
+    case MPU6050_CMD_GET_ANGLE:
+    {
+        ret = drv_mpu6050_board_get_angle(drv->id,(drv_mpu6050_angle_t*)user_data);
+    }
     break;
     default:
         break;
@@ -109,7 +155,7 @@ void mpu6050_init(void)
         drv_add(&dev_mpu6050[i]);
     }
 
-    printf("mpu6050 init ok");
+    printf("mpu6050 init ok\n");
 }
 
 DRIVER_REG(mpu6050_init);

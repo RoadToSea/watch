@@ -24,6 +24,8 @@
 #define USE_SW_IIC        1
 #define USE_LCD_TOUCH     1
 #define USE_MPU6050       1
+#define USE_SERIAL        1
+#define USE_SPL006        1
 
 /************************************************************************** 
                                  禁用驱动 

@@ -1422,6 +1422,7 @@ HAL_StatusTypeDef HAL_UART_Transmit_DMA(UART_HandleTypeDef *huart, const uint8_t
     /* Clear the TC flag in the SR register by writing 0 to it */
     __HAL_UART_CLEAR_FLAG(huart, UART_FLAG_TC);
 
+		// huart -> gState = HAL_UART_STATE_READY;  
     /* Enable the DMA transfer for transmit request by setting the DMAT bit
        in the UART CR3 register */
     ATOMIC_SET_BIT(huart->Instance->CR3, USART_CR3_DMAT);

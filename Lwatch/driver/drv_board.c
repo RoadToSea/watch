@@ -18,7 +18,7 @@ drv_ops_t drv_board_ops = {0};
 
 drv_board_t dev_board[] = {
     {
-        .drv_name = "dev_board_1",
+        .drv_name = "dev_board",
         .id = 0,
         .status = 0,
         .ops = &drv_board_ops,

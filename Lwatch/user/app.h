@@ -15,12 +15,18 @@
 #include "drv_lcd.h"
 #include "drv_lcd_touch.h"
 #include "drv_mpu6050.h"
+#include "drv_serial.h"
+#include "drv_spl06.h"
 
 typedef struct 
 {
     drv_lcd_touch_t* lcd_touch;
     drv_mpu6050_t* mpu6050;
+    drv_serial_t*  bluetooth_serial;
+    drv_spl06_t*   spl06;
 }lwatch_dev_t;
+
+extern lwatch_dev_t lwatch;
 
 
 void app_init(void);

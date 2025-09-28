@@ -2,7 +2,7 @@
  * @Author: RoadToSea 3376714571@qq.com
  * @Date: 2025-08-29 20:25:32
  * @LastEditors: RoadToSea 3376714571@qq.com
- * @LastEditTime: 2025-09-02 20:47:06
+ * @LastEditTime: 2025-09-03 20:16:47
  * @FilePath: \watch\Lwatch\Module\sw_iic\sw_iic.c
  * @Description: 
  * 版权声明 保留文件所有权利 
@@ -115,13 +115,13 @@ uint8_t sw_iic_recv_ack(board_iic_t* iic_handler)
         if(err_time-- == 0)
         {
             sw_iic_stop(iic_handler);
-            return 0; //接收不到从机应答
+            return NACK; //接收不到从机应答
         }
     }
 
     sw_iic_scl_out(iic_handler,LOW);
     DELAY_US(6);
-    return 1; //从机应答成功
+    return ACK; //从机应答成功
 
 }
 
@@ -137,6 +137,8 @@ void sw_iic_send_ack(board_iic_t* iic_handler,uint8_t ack)
     sw_iic_scl_out(iic_handler,HIGH);
     DELAY_US(6);
     sw_iic_scl_out(iic_handler,LOW);
+    DELAY_US(6);
+    sw_iic_sda_out(iic_handler,HIGH); //释放sda总线(很重要)
     DELAY_US(6);
 }
 
@@ -197,7 +199,7 @@ int sw_iic_write_one_byte(board_iic_t* iic_handler,uint8_t slave_addr,uint8_t re
     sw_iic_start(iic_handler);
 
     sw_iic_send_byte(iic_handler,slave_addr<<1 | WRITE);
-    if(sw_iic_recv_ack(iic_handler) == 0)  //如果没有找到从机，则退出iic通信
+    if(sw_iic_recv_ack(iic_handler) == NACK)  //如果没有找到从机，则退出iic通信
     {
         sw_iic_stop(iic_handler);
         return DRV_ERR_NODEV;
@@ -227,7 +229,7 @@ int sw_iic_write_multi_byte(board_iic_t* iic_handler,uint8_t slave_addr,uint8_t 
     sw_iic_start(iic_handler);
 
     sw_iic_send_byte(iic_handler,slave_addr<<1 | WRITE);
-    if(sw_iic_recv_ack(iic_handler) == 0)  //如果没有找到从机，则退出iic通信
+    if(sw_iic_recv_ack(iic_handler) == NACK)  //如果没有找到从机，则退出iic通信
     {
         sw_iic_stop(iic_handler);
         return DRV_ERR_NODEV;
@@ -259,7 +261,7 @@ int sw_iic_read_one_byte(board_iic_t* iic_handler,uint8_t slave_addr,uint8_t reg
     sw_iic_start(iic_handler);
 
     sw_iic_send_byte(iic_handler,slave_addr<< 1 | WRITE);
-    if(sw_iic_recv_ack(iic_handler) == 0)  //如果没有找到从机，则退出iic通信
+    if(sw_iic_recv_ack(iic_handler) == NACK)  //如果没有找到从机，则退出iic通信
     {
         sw_iic_stop(iic_handler);
         return DRV_ERR_NODEV;
@@ -294,7 +296,7 @@ int sw_iic_read_multi_byte(board_iic_t* iic_handler,uint8_t slave_addr,uint8_t r
     sw_iic_start(iic_handler);
 
     sw_iic_send_byte(iic_handler,slave_addr<< 1 | WRITE);
-    if(sw_iic_recv_ack(iic_handler) == 0)  //如果没有找到从机，则退出iic通信
+    if(sw_iic_recv_ack(iic_handler) == NACK)  //如果没有找到从机，则退出iic通信
     {
         sw_iic_stop(iic_handler);
         return DRV_ERR_NODEV;

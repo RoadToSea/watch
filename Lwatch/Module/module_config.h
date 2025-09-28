@@ -5,8 +5,11 @@
 
 #define MODULE_CONFIG_VERSION "1.0.0"
 
-#define USE_MLIST       1
-#define USE_MPWM        1
-#define USE_SW_IIC      1
+#define USE_MLIST               1
+#define USE_MPWM                1
+#define USE_SW_IIC              1
+#define USE_MRING_BUFFER        1
+#define USE_MSERIAL             1
+#define USE_NIMING              1
 
 #endif /* __MODULE_CONFIG_H */

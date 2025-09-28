@@ -2,7 +2,7 @@
  * @Author: RoadToSea 3376714571@qq.com
  * @Date: 2025-08-29 19:38:09
  * @LastEditors: RoadToSea 3376714571@qq.com
- * @LastEditTime: 2025-09-01 15:13:18
+ * @LastEditTime: 2025-09-21 16:30:00
  * @FilePath: \watch\Lwatch\driver\drv_lcd_touch.c
  * @Description: 
  * 版权声明 保留文件所有权利 
@@ -109,7 +109,7 @@ void lcd_touch_init(void)
         drv_add(&dev_lcd_touch[i]);
     }
 
-    printf("lcd_touch init ok");
+    printf("lcd_touch init ok\n");
 }
 
 DRIVER_REG(lcd_touch_init);

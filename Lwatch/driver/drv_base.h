@@ -3,6 +3,7 @@
 
 
 #include <stdint.h>
+#include <stdio.h>
 
 #define DRIVER_VERSION         "V1.0.0"
 #define DRIVER_ARCHITECTURE  
@@ -23,7 +24,8 @@ typedef void (*driver_init_fn_t)(void);
 #define STRINGIFY(a)            #a
 //虚函数定义
 #define WEAK_FUNC               __attribute__((weak))
-
+//调试输出
+#define DEBUG(...)               printf(__VA_ARGS__)
 
 /************************************************************************** 
                                  段注册  
@@ -109,6 +111,9 @@ typedef void (*driver_init_fn_t)(void);
 /************************************************************************** 
                                 错误码  
 ************************************************************************** */
+#define FUNC_CHECK_RET(ret)      {if(ret != DRV_OK) return ret;}
+
+
 /* 成功 */
 #define DRV_OK              (0)     // 操作成功
 
